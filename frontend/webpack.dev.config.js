@@ -50,13 +50,13 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
-        include: path.resolve(__dirname, "src"),
+        // include: path.resolve(__dirname, "src"),
         exclude: /node_modules/,
         type: "asset/resource",
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        include: path.resolve(__dirname, "src"),
+        // include: path.resolve(__dirname, "src"),
         exclude: /node_modules/,
         type: "asset/resource",
       },
