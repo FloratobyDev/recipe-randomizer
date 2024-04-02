@@ -12,7 +12,7 @@
     "paths": {
       "~/*": ["./"],
     },
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noEmit": false,
     "allowImportingTsExtensions": false,
     "esModuleInterop": true,

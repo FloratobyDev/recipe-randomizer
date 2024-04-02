@@ -22,10 +22,11 @@ function Search({ placeholder = "Search", onSubmit, hasAdd }: Props) {
   }, [searchValue]);
 
   function handleSearch() {
+    if (searchValue === "") return;
+
     const splitByCommaAndTrimmed = searchValue
       .split(",")
       .map((item) => item.trim());
-    console.log("splitByCommaAndTrimmed", splitByCommaAndTrimmed);
     onSubmit(splitByCommaAndTrimmed);
     setSearchValue("");
   }
@@ -44,7 +45,7 @@ function Search({ placeholder = "Search", onSubmit, hasAdd }: Props) {
       {hasAdd && (
         <p
           onClick={handleSearch}
-          className="px-1 rounded-md cursor-pointer hover:bg-background hover:text-primary font-jost"
+          className="px-1 rounded-md cursor-pointer hover:bg-background hover:text-primary font-jost select-none"
         >
           Add
         </p>

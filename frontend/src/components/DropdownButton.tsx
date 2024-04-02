@@ -2,10 +2,17 @@ import React, { useRef, useState } from "react";
 import Button from "./Button";
 import Search from "./Search";
 import useOutsideClick from "src/hooks/useOutsideClick";
+import { RecipeInformation } from "src/types";
 
-function DropdownButton() {
+type Props = {
+  savedRecipes: RecipeInformation[];
+  onSelect: (recipe: RecipeInformation) => void;
+};
+
+function DropdownButton({ savedRecipes, onSelect }: Props) {
   const [show, setShow] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
+
 
   useOutsideClick(divRef, show, handleShow);
 
@@ -13,14 +20,23 @@ function DropdownButton() {
     setShow(!show);
   }
   return (
-    <div ref={divRef} className="relative select-none">
+    <div ref={divRef} className="relative select-none z-10">
       {show && (
-        <div className="absolute bottom-12 left-0 bg-blue-200 p-2 w-44">
+        <div className="absolute bottom-12 left-0 bg-primary border border-background rounded-md p-2 w-44">
           <Search placeholder="Search" />
-          <p>Lime Chicken</p>
-          <p>Fried Chicken</p>
-          <p>Fried Chicken</p>
-          <p>Fried Chicken</p>
+          <div className="mt-1 text-xs flex flex-col gap-y-0.5">
+            {savedRecipes.map((recipe) => (
+              <Button
+                key={recipe.recipeInformation.id}
+                onClick={() => {
+                  onSelect(recipe);
+                  handleShow();
+                }}
+              >
+                {recipe.recipeInformation.title}
+              </Button>
+            ))}
+          </div>
         </div>
       )}
       <Button onClick={handleShow}>
