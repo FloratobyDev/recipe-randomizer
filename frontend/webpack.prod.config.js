@@ -7,9 +7,10 @@ const { DefinePlugin } = require("webpack");
 module.exports = {
   entry: "./src/index.tsx",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../backend/dist/public/"),
     filename: "bundle.js",
     publicPath: "/",
+    clean: true,
   },
   module: {
     rules: [
@@ -20,7 +21,11 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-react", "@babel/preset-env"],
+            presets: [
+              "@babel/preset-react",
+              "@babel/preset-env",
+              "@babel/preset-typescript",
+            ],
           },
         },
       },
@@ -48,7 +53,7 @@ module.exports = {
     plugins: [new TsconfigPathsPlugin()],
   },
   mode: "production",
-  devtool: "source-map",
+  devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "index.html"),

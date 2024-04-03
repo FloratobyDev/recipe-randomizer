@@ -19,19 +19,19 @@ function App() {
     const indexedDB = window.indexedDB;
     const request = indexedDB.open("recipe", 1);
 
-    request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
-      const db = (event.target as IDBOpenDBRequest).result;
+    request.onupgradeneeded = (event: any) => {
+      const db = event.target.result;
       db.createObjectStore("recipe", { keyPath: "id" });
     };
 
-    request.onsuccess = (event: IDBVersionChangeEvent) => {
-      const db = (event.target as IDBOpenDBRequest).result;
+    request.onsuccess = (event: any) => {
+      const db = event.target.result;
       const transaction = db.transaction("recipe", "readwrite");
       const recipeStore = transaction.objectStore("recipe");
       const request = recipeStore.getAll();
 
-      request.onsuccess = (event) => {
-        const results = (event.target as IDBRequest).result;
+      request.onsuccess = (event: any) => {
+        const results = event.target.result;
         const recipes = results.map((result) => result.recipe);
         setSavedRecipes(recipes);
       };
@@ -42,7 +42,7 @@ function App() {
     setLoading(true);
     setNoRecipeFoundError(false);
     axios
-      .get("/api/randomize", {
+      .get("/randomize", {
         params: {
           ingredients: listOfIngredients,
         },
