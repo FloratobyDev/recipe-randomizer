@@ -16,7 +16,9 @@ const controller = {
     }
 
     function isEmpty(value) {
-      if (Array.isArray(value) || Object.keys(value).length > 0) {
+      if (Array.isArray(value) && value.length <= 0) {
+        return true;
+      } else if (Object.keys(value).length <= 0) {
         return true;
       }
       return false;
@@ -26,7 +28,7 @@ const controller = {
       .get(apiEndPoint)
       .then(async (response) => {
         console.log("response", response.data);
-        if (isEmpty(response.data)) {
+        if (!isEmpty(response.data)) {
           console.log("response.data", response.data);
 
           const recipeData = ingredients
@@ -45,6 +47,7 @@ const controller = {
               return res.send(error);
             });
         } else {
+          console.log("No recipe found");
           return res.status(404).send("No recipe found");
         }
       })

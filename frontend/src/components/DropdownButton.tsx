@@ -13,14 +13,17 @@ function DropdownButton({ savedRecipes, onSelect }: Props) {
   const [show, setShow] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
-
   useOutsideClick(divRef, show, handleShow);
 
   function handleShow() {
     setShow(!show);
   }
   return (
-    <div ref={divRef} className="relative select-none z-10">
+    <div
+      ref={divRef}
+      className="relative select-none z-10"
+      data-testid="saved-recipes"
+    >
       {show && (
         <div className="absolute bottom-12 left-0 bg-primary border border-background rounded-md p-2 w-44">
           <Search placeholder="Search" />

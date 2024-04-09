@@ -38,7 +38,8 @@ function Search({ placeholder = "Search", onSubmit, hasAdd }: Props) {
           setSearchValue(e.target.value);
         }}
         type="text"
-        className=" outline-none bg-transparent w-full h-full placeholder:text-background placeholder:text-sm md:placeholder:text-base placeholder:font-jost font-jost"
+        data-testid="add-item"
+        className="outline-none bg-transparent w-full h-full placeholder:text-background placeholder:text-sm md:placeholder:text-base placeholder:font-jost font-jost"
         autoFocus
         placeholder={placeholder}
       />
