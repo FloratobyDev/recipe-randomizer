@@ -4,7 +4,7 @@ import Button from "./components/Button";
 import axios from "axios";
 import BrandButton from "./components/BrandButton";
 import DropdownButton from "./components/DropdownButton";
-import Recipe from "./recipe/Recipe";
+const Recipe = React.lazy(() => import("./recipe/Recipe"));
 import { RecipeInformation } from "./types";
 import PrintLogo from "./svgs/PrintLogo";
 import NoRecipe from "./recipe/NoRecipe";
@@ -110,14 +110,16 @@ function App() {
       <div className="w-full h-full flex flex-col">
         <div className="overflow-y-auto pb-4 pt-12 h-full">
           {(recipeData || noRecipeFoundError) && (
-            <Recipe
-              data={recipeData}
-              savedRecipes={savedRecipes}
-              loading={loading}
-              onSave={onSave}
-              onRemove={onRemove}
-              noRecipeFoundError={noRecipeFoundError}
-            />
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <Recipe
+                data={recipeData}
+                savedRecipes={savedRecipes}
+                loading={loading}
+                onSave={onSave}
+                onRemove={onRemove}
+                noRecipeFoundError={noRecipeFoundError}
+              />
+            </React.Suspense>
           )}
           {!recipeData && !noRecipeFoundError && <NoRecipe />}
         </div>
